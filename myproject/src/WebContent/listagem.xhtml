@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Listagem de Usuários</title>
+</h:head>
+
+<h:body>
+    <h1>Listagem de Usuários</h1>
+
+    <h:dataTable id="userTable" var="usuario" value="#{usuarioBean.listaUsuarios}">
+        <h:column>
+            <f:facet name="header">ID</f:facet>
+            #{usuario.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Nome</f:facet>
+            #{usuario.nome}
+        </h:column>
+        <!-- Outras colunas para exibir mais informações -->
+    </h:dataTable>
+
+    <script>
+        $(document).ready(function() {
+            function atualizarTabela() {
+                $.get("/api/usuarios", function(data) {
+                    var tableBody = $("#userTable tbody");
+                    tableBody.empty();
+
+                    data.forEach(function(usuario) {
+                        var row = "<tr><td>" + usuario.id + "</td><td>" + usuario.nome + "</td></tr>";
+                        tableBody.append(row);
+                    });
+                });
+            }
+
+            // Chama a função para atualizar a tabela quando a página carregar e a cada X segundos
+            atualizarTabela();
+            setInterval(atualizarTabela, 10000); // Atualiza a cada 10 segundos, por exemplo
+        });
+    </script>
+</h:body>
+
+</html>

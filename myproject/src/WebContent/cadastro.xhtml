@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Cadastro de Usuários</title>
+</h:head>
+
+<h:body>
+    <h1>Cadastro de Usuários</h1>
+
+    <h:form id="cadastroForm">
+        <p:inputText id="nome" label="Nome" required="true" />
+
+        <p:inputText id="username" label="Username" required="true" />
+
+       <p:inputText id="password" label="Senha" required="true" validatorMessage="A senha deve conter pelo menos 8 caracteres, um número e uma letra maiúscula">
+   	   <p:ajax event="keyup" update="passwordMessage" />
+       </p:inputText>
+       <p:message id="passwordMessage" for="password" />
+
+        <p:inputText id="foto" label="Foto" />
+
+        <p:inputText id="endereco" label="Endereço" />
+
+        <p:inputText id="email" label="Email" required="true" />
+
+        <p:calendar id="dataNascimento" label="Data de Nascimento" required="true" />
+        
+        <p:selectOneRadio id="sexo" label="Sexo" required="true">
+    	<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+    	<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+		</p:selectOneRadio>
+        
+        
+        <p:selectOneMenu id="tipoPessoa" label="Tipo" required="true">
+    	<f:selectItem itemLabel="Selecione..." itemValue="" />
+    	<f:selectItem itemLabel="Pessoa Física" itemValue="FISICA" />
+    	<f:selectItem itemLabel="Pessoa Jurídica" itemValue="JURIDICA" />
+   		 <p:ajax update="cpfField cnpjField" />
+		</p:selectOneMenu>
+<p:inputText id="cpfField" label="CPF" rendered="#{usuarioBean.tipoPessoa eq 'FISICA'}" 
+             required="true" maxlength="14" />
+<p:inputText id="cnpjField" label="CNPJ" rendered="#{usuarioBean.tipoPessoa eq 'JURIDICA'}" 
+             required="true" maxlength="18" />
+
+        <!-- Outros campos e componentes -->
+
+        <p:commandButton value="Cadastrar" action="#{usuarioBean.cadastrarUsuario}" 
+                         onclick="cadastrarUsuario();" />
+    </h:form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function cadastrarUsuario() {
+            var nome = $("#nome").val();
+            var username = $("#username").val();
+            var password = $("#password").val();
+            var foto = $("#foto").val();
+            var endereco = $("#endereco").val();
+            var email = $("#email").val();
+            var dataNascimento = $("#dataNascimento").val();
+
+            var usuario = {
+                nome: nome,
+                username: username,
+                password: password,
+                foto: foto,
+                endereco: endereco,
+                email: email,
+                dataNascimento: dataNascimento
+                // Outros campos
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/api/usuarios",
+                data: JSON.stringify(usuario),
+                contentType: "application/json",
+                success: function(data) {
+                	alert("Cadastrado com sucesso!");
+                },
+                error: function(error) {
+                	alert("Por favor, insira corretamente as informações.");
+                }
+            });
+        }
+    </script>
+</h:body>
+</html>

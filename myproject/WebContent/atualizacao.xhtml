@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Atualização de Usuário</title>
+    <h:outputStylesheet library="css" name="styles.css" />
+</h:head>
+
+<h:form class="form">
+    <p:inputText id="nomeAtualizacao" label="Nome que será Atualizado" required="true" styleClass="input-field" />
+
+    <p:inputText id="usernameAtualizacao" label="Username que será Atualizado" required="true" styleClass="input-field" />
+
+    <p:password id="passwordAtualizacao" label="Senha que será Atualizada" required="true" styleClass="input-field" />
+
+    <p:inputText id="fotoAtualizacao" label="Foto que será Atualizada" styleClass="input-field" />
+
+    <p:inputText id="enderecoAtualizacao" label="Endereço que será Atualizado" styleClass="input-field" />
+
+    <p:inputText id="emailAtualizacao" label="Email que será Atualizado" required="true" styleClass="input-field" />
+
+    <p:calendar id="dataNascimentoAtualizacao" label="Data de Nascimento que será Atualizada" required="true" styleClass="input-field" />
+
+    <!-- Outros campos e componentes -->
+    
+    <p:commandButton value="Atualizar" action="#{usuarioBean.atualizarUsuario}" styleClass="btn" />
+    
+</h:form>

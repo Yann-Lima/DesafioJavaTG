@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Cadastro de Usuário</title>
+    <h:outputStylesheet library="css" name="styles.css" />
+</h:head>
+<h:form class="form">
+    <p:inputText id="nome" label="Nome" required="true" styleClass="input-field" />
+
+    <p:inputText id="username" label="Username" required="true" styleClass="input-field" />
+
+    <p:password id="password" label="Senha" required="true" styleClass="input-field" />
+
+    <p:inputText id="foto" label="Foto" styleClass="input-field" />
+
+    <p:inputText id="endereco" label="Endereço" styleClass="input-field" />
+
+    <p:inputText id="email" label="Email" required="true" styleClass="input-field" />
+
+    <p:calendar id="dataNascimento" label="Data de Nascimento" required="true" styleClass="input-field" />
+
+    <!-- Outros campos e componentes -->
+    
+    <p:commandButton value="Cadastrar" action="#{usuarioBean.cadastrarUsuario}" styleClass="btn" />
+    
+</h:form>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Atualização de Usuários</title>
+</h:head>
+
+<h:body>
+    <h1>Atualização de Usuários</h1>
+
+    <h:form id="updateForm">
+        <p:inputText id="nomeAtualizacao" label="Nome que sera Atualizado" required="true" />
+
+        <p:inputText id="usernameAtualizacao" label="Username que sera Atualizado" required="true" />
+
+        <p:password id="passwordAtualizacao" label="Senha que sera Atualizada" required="true" validatorMessage="A senha deve conter pelo menos 8 caracteres, um número e uma letra maiúscula">
+            <f:validator validatorId="customPasswordValidator" />
+            <p:ajax event="keyup" update="passwordMessageAtualizacao" />
+        </p:password>
+        <p:message id="passwordMessageAtualizacao" for="passwordAtualizacao" />
+
+        <!-- Resto do código ... -->
+
+        <p:selectOneMenu id="sexoAtualizacao" label="Sexo" required="true">
+            <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+            <f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+        </p:selectOneMenu>
+
+        <p:commandButton value="Atualizar" action="#{usuarioBean.atualizarUsuario}" 
+                         onclick="atualizarUsuario();" />
+    </h:form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function atualizarUsuario() {
+            var id = /* obter o ID do usuário a partir de algum campo */;
+            var nome = $("#nomeAtualizacao").val();
+            var username = $("#usernameAtualizacao").val();
+            var password = $("#passwordAtualizacao").val();
+            var foto = $("#fotoAtualizacao").val();
+            var endereco = $("#enderecoAtualizacao").val();
+            var email = $("#emailAtualizacao").val();
+            var dataNascimento = $("#dataNascimentoAtualizacao").val();
+            var sexo = $("#sexoAtualizacao").val();
+
+            var usuario = {
+                id: id,
+                nome: nome,
+                username: username,
+                password: password,
+                foto: foto,
+                endereco: endereco,
+                email: email,
+                dataNascimento: dataNascimento,
+                sexo: sexo
+                // Outros campos
+            };
+
+            $.ajax({
+                type: "PUT",
+                url: "/api/usuarios/" + id,
+                data: JSON.stringify(usuario),
+                contentType: "application/json",
+                success: function(data) {
+                    // Aqui você pode adicionar lógica para atualizar a página ou exibir uma mensagem de sucesso
+                },
+                error: function(error) {
+                    // Aqui você pode lidar com erros, como exibir uma mensagem de erro
+                }
+            });
+        }
+    </script>
+</h:body>
+</html>
