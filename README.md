@@ -1,4 +1,4 @@
-# Desafio Backend
+# Desafio Java
 
 Este é um projeto de backend desenvolvido para um desafio, envolvendo um sistema de cadastro de usuários com diferentes informações e validações. O projeto utiliza as seguintes tecnologias e ferramentas:
 
