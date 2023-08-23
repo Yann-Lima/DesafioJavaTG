@@ -1,6 +1,7 @@
 package com.example;
 
-import com.example.UsuarioServiceImpl;
+import com.example.backend.UsuarioService;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,7 +16,7 @@ public class UsuarioHibernateTest {
     private SessionFactory sessionFactory;
     private Session session;
     private Transaction transaction;
-    private UsuarioServiceImpl usuarioService;
+    private UsuarioService usuarioService;
 
     @Before
     public void setup() {
@@ -24,7 +25,7 @@ public class UsuarioHibernateTest {
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
         
-        usuarioService = new UsuarioServiceImpl(sessionFactory);
+        usuarioService = new UsuarioService(sessionFactory);
     }
 
 

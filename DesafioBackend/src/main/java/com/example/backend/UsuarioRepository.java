@@ -1,16 +1,11 @@
 package com.example.backend;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
-import javax.persistence.StoredProcedureQuery;
 import javax.persistence.ParameterMode;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import javax.persistence.EntityManager;
 import javax.persistence.StoredProcedureQuery;
 
 @Repository
@@ -27,13 +22,9 @@ public class UsuarioRepository {
         Session session = entityManager.unwrap(Session.class);
 
         StoredProcedureQuery query = session.createStoredProcedureQuery("atualizar_usuario");
-        query.registerStoredProcedureParameter("id", Long.class, ParameterMode.IN);
-        query.registerStoredProcedureParameter("novoNome", String.class, ParameterMode.IN);
-        query.registerStoredProcedureParameter("novoEmail", String.class, ParameterMode.IN);
-
-        query.setParameter("id", id);
-        query.setParameter("novoNome", novoNome);
-        query.setParameter("novoEmail", novoEmail);
+        query.registerStoredProcedureParameter("id", Long.class, ParameterMode.IN).bindValue(id);
+        query.registerStoredProcedureParameter("novoNome", String.class, ParameterMode.IN).bindValue(novoNome);
+        query.registerStoredProcedureParameter("novoEmail", String.class, ParameterMode.IN).bindValue(novoEmail);
 
         query.execute();
     }

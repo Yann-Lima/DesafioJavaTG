@@ -1,11 +1,7 @@
 package com.example.backend;
 
-import com.example.backend.Usuario;
 import org.springframework.dao.EmptyResultDataAccessException;
-import com.example.backend.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.InputMismatchException;
 
 import java.util.List;
 
@@ -14,7 +10,6 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
 
-    @Autowired
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
@@ -41,26 +36,21 @@ public class UsuarioService {
         try {
             usuarioRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            // Trate a exceção ou lance outra exceção personalizada, se necessário
             throw new IllegalArgumentException("Usuário não encontrado.", e);
         }
     }
 
-
-    // Função para validar os campos do usuário
     private void validarCampos(Usuario usuario) {
         validarSenha(usuario.getPassword());
         validarTipoPessoa(usuario);
     }
 
-    // Função para validar a senha
     private void validarSenha(String senha) {
         if (!senha.matches("(?=.*[0-9])(?=.*[A-Z]).{8,}")) {
             throw new IllegalArgumentException("A senha deve conter pelo menos 8 caracteres, um número e uma letra maiúscula.");
         }
     }
 
-    // Função para validar o tipo de pessoa e campos relacionados (CPF ou CNPJ)
     private void validarTipoPessoa(Usuario usuario) {
         if (usuario.getTipoPessoa().equals("FISICA")) {
             validarCPF(usuario.getCpf());
